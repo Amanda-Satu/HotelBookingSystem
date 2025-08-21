@@ -12,8 +12,8 @@ public class Review {
     private Long reviewId;
 
     @ManyToOne
-    @JoinColumn(name = "customerId", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "roomId", nullable = false)
@@ -30,7 +30,7 @@ public class Review {
 
     private Review(Builder builder) {
         this.reviewId = builder.reviewId;
-        this.customer = builder.customer;
+        this.user = builder.user;
         this.room = builder.room;
         this.rating = builder.rating;
         this.comment = builder.comment;
@@ -38,7 +38,7 @@ public class Review {
     }
 
     public Long getReviewId() { return reviewId; }
-    public Customer getCustomer() { return customer; }
+    public Customer getUser() { return user; }
     public Room getRoom() { return room; }
     public int getRating() { return rating; }
     public String getComment() { return comment; }
@@ -48,7 +48,7 @@ public class Review {
     public String toString() {
         return "Review{" +
                 "reviewId=" + reviewId +
-                ", customer=" + (customer != null ? customer.getCustomerId() : null) +
+                ", user=" + (user != null ? user.getUserId() : null) +
                 ", room=" + (room != null ? room.getRoomId() : null) +
                 ", rating=" + rating +
                 ", comment='" + comment + '\'' +
@@ -58,14 +58,14 @@ public class Review {
 
     public static class Builder {
         private Long reviewId;
-        private Customer customer;
+        private User user;
         private Room room;
         private int rating;
         private String comment;
         private LocalDateTime createdAt;
 
         public Builder setReviewId(Long reviewId) { this.reviewId = reviewId; return this; }
-        public Builder setCustomer(Customer customer) { this.customer = customer; return this; }
+        public Builder setUser(User user) { this.user = user; return this; }
         public Builder setRoom(Room room) { this.room = room; return this; }
         public Builder setRating(int rating) { this.rating = rating; return this; }
         public Builder setComment(String comment) { this.comment = comment; return this; }
@@ -73,7 +73,7 @@ public class Review {
 
         public Builder copy(Review review) {
             this.reviewId = review.reviewId;
-            this.customer = review.customer;
+            this.user = review.user;
             this.room = review.room;
             this.rating = review.rating;
             this.comment = review.comment;
