@@ -1,7 +1,27 @@
 package za.ac.cput.domain;
 
+//Amanda Satu (221094008)
+
+import jakarta.persistence.*;
+
+
+
+@Entity
 public class User {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(nullable = false, updatable = false)
     private Long userId;
+
+    @ManyToOne
+    @JoinColumn(name = "addressId", nullable = false)
+    private Address address;
+
+    @ManyToOne
+    @JoinColumn(name ="contactId", nullable = false)
+    private Contact contact;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -9,11 +29,13 @@ public class User {
     private String password;
     private String role;
 
-    public User() {
+    protected User() {
     }
 
     private User(Builder builder){
         this.userId = builder.userId;
+        this.address = builder.address;
+        this.contact = builder.contact;
         this.firstName = builder.firstName;
         this.lastName = builder.lastName;
         this.email = builder.email;
@@ -24,6 +46,14 @@ public class User {
 
     public Long getUserId() {
         return userId;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public Contact getContact() {
+        return contact;
     }
 
     public String getFirstName() {
@@ -54,6 +84,8 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
+                ", address=" + (address != null ? address.getAddressId() : null) +
+                ", contact=" + (contact != null ? contact.getContactId() : null) +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
@@ -65,6 +97,8 @@ public class User {
 
     public static class Builder {
         private Long userId;
+        private Address address;
+        private Contact contact;
         private String firstName;
         private String lastName;
         private String email;
@@ -74,6 +108,16 @@ public class User {
 
         public Builder setUserId(Long userId) {
             this.userId = userId;
+            return this;
+        }
+
+        public Builder setAddress(Address address) {
+            this.address = address;
+            return this;
+        }
+
+        public Builder setContact(Contact contact) {
+            this.contact = contact;
             return this;
         }
 
@@ -109,6 +153,8 @@ public class User {
 
         public Builder copy(User user){
             this.userId = user.userId;
+            this.address = user.address;
+            this.contact = user.contact;
             this.firstName = user.firstName;
             this.lastName = user.lastName;
             this.email = user.email;
