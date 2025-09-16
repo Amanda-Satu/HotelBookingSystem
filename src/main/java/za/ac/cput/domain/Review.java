@@ -1,7 +1,9 @@
-package za.ca.cput.domain;
+package za.ac.cput.domain;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+
+
 
 @Entity
 @Table(name = "reviews")
@@ -38,7 +40,7 @@ public class Review {
     }
 
     public Long getReviewId() { return reviewId; }
-    public Customer getUser() { return user; }
+    public User getUser() { return user; }
     public Room getRoom() { return room; }
     public int getRating() { return rating; }
     public String getComment() { return comment; }
@@ -49,7 +51,7 @@ public class Review {
         return "Review{" +
                 "reviewId=" + reviewId +
                 ", user=" + (user != null ? user.getUserId() : null) +
-                ", room=" + (room != null ? room.getRoomId() : null) +
+                ", room=" + (room != null ? room.getRoomID() : null) +
                 ", rating=" + rating +
                 ", comment='" + comment + '\'' +
                 ", createdAt=" + createdAt +
